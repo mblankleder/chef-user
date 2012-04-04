@@ -33,6 +33,7 @@ action :create do
   dir_resource              :create
   authorized_keys_resource  :create
   keygen_resource           :create
+  add_user_to_groups	    :create
 end
 
 action :remove do
@@ -162,4 +163,13 @@ def keygen_resource(exec_action)
       end
     end
   end
+end
+
+# Dirty but it works
+def add_user_to_groups(exec_action)
+gr = Array(new_resource.groups)
+	gr.each do |g|
+		`usermod -G #{g} #{new_resource.username}`
+		Chef::Log.info("Added #{new_resource.username} to #{g} group.")
+	end
 end

@@ -33,6 +33,7 @@ attribute :manage_home,   :default => nil
 attribute :create_group,  :default => nil
 attribute :ssh_keys,      :kind_of => [Array,String], :default => []
 attribute :ssh_keygen,    :default => nil
+attribute :groups,	  :kind_of => Array
 
 def initialize(*args)
   super
