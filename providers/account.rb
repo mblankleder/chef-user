@@ -167,9 +167,8 @@ end
 
 # Dirty but it works
 def add_user_to_groups(exec_action)
-gr = Array(new_resource.groups)
-	gr.each do |g|
-		`usermod -G #{g} #{new_resource.username}`
-		Chef::Log.info("Added #{new_resource.username} to #{g} group.")
-	end
+	gr = Array(new_resource.groups)
+	s = gr.join(",")
+	`usermod -G #{s} #{new_resource.username}`
+	Chef::Log.info("Added #{new_resource.username} to #{s} group.")
 end
