@@ -168,7 +168,11 @@ end
 # Dirty but it works
 def add_user_to_groups(exec_action)
 	gr = Array(new_resource.groups)
-	s = gr.join(",")
-	`usermod -G #{s} #{new_resource.username}`
-	Chef::Log.info("Added #{new_resource.username} to #{s} group.")
+	if gr.count != 0
+		s = gr.join(",")
+		`usermod -G #{s} #{new_resource.username}`
+		Chef::Log.info("Added #{new_resource.username} to #{s} group.")
+	else
+		Chef::Log.info("User #{new_resource.username} doesn't belong to any other group.")
+	end
 end
